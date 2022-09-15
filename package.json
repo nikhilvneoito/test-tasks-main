@@ -1,0 +1,22 @@
+{
+    "name": "test-task-base",
+    "description": "This is the base of the test task",
+    "version": "1.0.0",
+    "main": "index.js",
+    "scripts": {
+        "start": "json-server --watch db.json --port 3333"
+    },
+    "repository": {
+        "type": "git",
+        "url": " "
+    },
+    "devDependencies": {
+        "json-server": "^0.17.0"
+    },
+    "author": "safaldas",
+    "license": "ISC",
+    "dependencies": {
+        "@angular/material": "^14.2.1",
+        "tailwindcss": "^3.1.8"
+    }
+}

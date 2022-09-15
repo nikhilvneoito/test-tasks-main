@@ -1,0 +1,65 @@
+<div class="flex flex-col">
+  <div class="flex items-center justify-center gap-4">
+    <div class="text-xl font-semibold">Users</div>
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Search</mat-label>
+      <input
+        matInput
+        placeholder="Search here"
+        (keyup)="searchedUser.next($event)"
+      />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Sort By</mat-label>
+      <mat-select (selectionChange)="sortUsers($event)">
+        <mat-option
+          *ngFor="let option of dropDownOptions"
+          [value]="option.value"
+        >
+          {{ option.viewValue }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button
+      mat-raised-button
+      color="primary"
+      type="button"
+      routerLink="/user-profile/new"
+    >
+      Create a User
+    </button>
+  </div>
+  <div id="listDiv" class="w-full flex justify-center flex-wrap gap-4">
+    <ng-container *ngFor="let user of usersList; trackBy: trackByFunc">
+      <div
+        class="flex justify-evenly gap-4 sm:w-1/4 lg:w-1/5 border-2 border-gray-800 pt-2 cursor-pointer"
+        [routerLink]="['/user-profile', user.id]"
+      >
+        <div class="flex flex-col items-center">
+          <img
+            src="{{ user.avatarUrl }}"
+            alt="User Image"
+            width="75"
+            height="75"
+          />
+          <strong>{{ user.age }}</strong>
+        </div>
+        <div class="flex flex-col">
+          <div class="flex flex-col">
+            <strong>{{ user.name | titlecase }}</strong>
+            <div>{{ user.statusMessage | titlecase }}</div>
+            <div>{{ user.createdAt | date: "mediumDate" }}</div>
+          </div>
+          <div class="flex justify-end">
+            <span class="material-symbols-outlined" *ngIf="user.isPublic">
+              group
+            </span>
+            <span class="material-symbols-outlined" *ngIf="!user.isPublic">
+              group_off
+            </span>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>
