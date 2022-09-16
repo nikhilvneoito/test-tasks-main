@@ -1,18 +1,6 @@
 {
   "users": [
     {
-      "age": 76,
-      "avatarUrl": "https://i.pravatar.cc/150?u=10010",
-      "bio": "Aperiam libero sint corrupti odio aut sed, iure ea aperiam esse eos sunt sint.",
-      "color": "#72D9D0",
-      "createdAt": "2017-08-17T09:53:24Z",
-      "email": "#yppkecn@yydwk.mw",
-      "id": 3,
-      "isPublic": true,
-      "name": "odio a",
-      "statusMessage": "working from home"
-    },
-    {
       "age": 69,
       "avatarUrl": "https://i.pravatar.cc/150?u=30103",
       "bio": "Suscipit perspiciatis maxime at ducimus, doloribus laudantium laborum at, perspiciatis consequatur. Voluptatibus quas perspiciatis in illo earum, quod porro reprehenderit consequuntur quia, voluptate animi reiciendis doloribus eum saepe ad.",
@@ -25,28 +13,14 @@
       "statusMessage": "watching Netflix"
     },
     {
-      "age": 68,
-      "avatarUrl": "https://i.pravatar.cc/150?u=46213",
-      "bio": "Consequatur est eius non a expedita a est sit, expedita error voluptatem modi, reprehenderit perspiciatis sed, hic a at distinctio quaerat iure repellendus in.",
-      "color": "#C6FD58",
-      "createdAt": "2018-01-15T16:48:03Z",
-      "email": "#zejggyk@btrpr.ei",
-      "id": 11,
-      "isPublic": false,
       "name": "soluta a",
-      "statusMessage": "working from home"
-    },
-    {
-      "age": 51,
-      "avatarUrl": "https://i.pravatar.cc/150?u=11839",
-      "bio": "Iste qui perspiciatis impedit amet soluta, soluta consequatur maiores sed, dolore consectetur nam harum.",
-      "color": "#15569F",
-      "createdAt": "2011-08-05T11:51:45Z",
-      "email": "#vivhwf@ivrzg.ex",
-      "id": 12,
-      "isPublic": false,
-      "name": "nobis",
-      "statusMessage": "working from home"
+      "statusMessage": "working from home",
+      "age": 68,
+      "email": "#zejggyk@btrpr.ei",
+      "isPublic": true,
+      "avatarUrl": "https://i.pravatar.cc/150?u=46213",
+      "id": 11,
+      "createdAt": "2018-01-15T16:48:03Z"
     },
     {
       "age": 94,
@@ -58,18 +32,6 @@
       "id": 13,
       "isPublic": false,
       "name": "dolore",
-      "statusMessage": "working from home"
-    },
-    {
-      "age": 96,
-      "avatarUrl": "https://i.pravatar.cc/150?u=25829",
-      "bio": "Quas sed reprehenderit aliquid ab exercitationem, recusandae perspiciatis laborum aut quisquam. Magni debitis in reprehenderit aliquid, iusto expedita sint accusamus, id consectetur in consequatur a.",
-      "color": "#3E4059",
-      "createdAt": "2018-12-14T04:19:35Z",
-      "email": "#zlunewc@sikkz.dg",
-      "id": 14,
-      "isPublic": true,
-      "name": "neque",
       "statusMessage": "working from home"
     },
     {
@@ -142,18 +104,6 @@
       "id": 20,
       "isPublic": false,
       "name": "nobis id",
-      "statusMessage": "working from home"
-    },
-    {
-      "age": 65,
-      "avatarUrl": "https://i.pravatar.cc/150?u=45822",
-      "bio": "Architecto quisquam ut rem a, ea corporis a quia cum ut, quo necessitatibus, obcaecati a reiciendis soluta, similique minus tempora, soluta a autem.",
-      "color": "#\u0000BBF94",
-      "createdAt": "2014-07-25T15:52:23Z",
-      "email": "#wghscr@mfscu.jg",
-      "id": 21,
-      "isPublic": true,
-      "name": "minus",
       "statusMessage": "working from home"
     },
     {
@@ -1175,6 +1125,67 @@
       "email": "naomielaten@gmail.com",
       "isPublic": true,
       "id": 109
+    },
+    {
+      "name": "nobis",
+      "statusMessage": "working from home",
+      "age": 51,
+      "email": "#vivhwf@ivrzg.ex",
+      "isPublic": true,
+      "id": 110
+    },
+    {
+      "name": "nobis",
+      "statusMessage": "working from home",
+      "age": 51,
+      "email": "#vivhwf@ivrzg.ex",
+      "isPublic": true,
+      "id": 111
+    },
+    {
+      "name": "Alan",
+      "statusMessage": "fwevweg",
+      "age": 56,
+      "email": "asds@asdf.sdf",
+      "isPublic": false,
+      "avatarUrl": "",
+      "id": 112
+    },
+    {
+      "name": "werwer",
+      "statusMessage": "sfsdfds",
+      "age": 45,
+      "email": "jk@kj.nk",
+      "isPublic": false,
+      "avatarUrl": "",
+      "id": 113
+    },
+    {
+      "name": "wedgfedsf",
+      "statusMessage": "sdfjk",
+      "age": 56,
+      "email": "asd@gmail.com",
+      "isPublic": true,
+      "avatarUrl": "",
+      "id": 114
+    },
+    {
+      "name": "ngrxuser",
+      "statusMessage": "wiuebfboiasds\\jkd",
+      "age": 45,
+      "email": "ngrx@user.com",
+      "isPublic": false,
+      "avatarUrl": "",
+      "id": 115
+    },
+    {
+      "name": "qwetw",
+      "statusMessage": "sdfsef",
+      "age": 23,
+      "email": "sdfjk@sf.com",
+      "isPublic": false,
+      "avatarUrl": "",
+      "id": 116
     }
   ]
 }

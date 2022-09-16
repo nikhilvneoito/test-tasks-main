@@ -22,7 +22,7 @@ export class UserProfileService {
     );
   }
 
-  updateUser(userDetails: Omit<User, 'color' | 'bio'>) {
+  updateUser(userDetails: Partial<User>) {
     return this._http.put<any>(
       `${this.baseUrl}/users/${userDetails.id}`,
       userDetails

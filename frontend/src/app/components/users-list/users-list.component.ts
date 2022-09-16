@@ -1,5 +1,5 @@
-import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { Subject } from 'rxjs/internal/Subject';
 import { Options } from 'src/app/utils/options.interface';
 import { User } from 'src/app/utils/user.interface';
@@ -13,6 +13,9 @@ import {
 } from '@angular/material/snack-bar';
 import { USER_CONSTANTS } from 'src/app/utils/users.constant';
 import { SNACKBAR_CONST } from 'src/app/utils/material.constant';
+import { PageEvent } from '@angular/material/paginator';
+import { Observable } from 'rxjs';
+import { select, Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-users-list',
@@ -24,15 +27,23 @@ export class UsersListComponent implements OnInit {
   sortCriteria: string = '';
   searchedUser = new Subject<Event>();
   usersList: User[] = [];
-  dropDownOptions: Options[] = USER_CONSTANTS.DROP_DOWN;
+  dropDownOptions: Options[] = USER_CONSTANTS.SORT_BY_DROP_DOWN;
+  pageEvent: PageEvent = new PageEvent();
+  pageNumber: number = 1;
+  pageSize: number = 10;
+  prevLink: string = '';
+  nextLink: string = '';
+  lastLink: string = '';
+  totalLengthPage: number = 0;
+
 
   constructor(
     private _usersListService: UsersListService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
   ) {}
 
   ngOnInit() {
-    this.getUsersList();
+    this.getUsersList(this.pageNumber);
     this.searchedUser.pipe(debounceTime(200)).subscribe({
       next: (event: Event) => {
         this.searchUsers(event);
@@ -40,23 +51,58 @@ export class UsersListComponent implements OnInit {
     });
   }
 
-  getUsersList() {
-    this._usersListService.getUsersList().subscribe({
-      next: (result: User[]) => {
-        this.usersList = result;
-      },
-      error: (err: HttpErrorResponse) => {
-        this.openSnackBar(err.statusText);
-      },
-    });
+  getUsersList(pageNumber: number) {
+    this._usersListService
+      .getUsersList(this.searchKeyword, this.sortCriteria, pageNumber)
+      .subscribe({
+        next: (result: HttpResponse<any>) => {
+          this.usersList = result.body;
+          let response = result.headers.get('Link');
+          let commaSplitted: string[] = response!.split(', ');
+          let semiColonSplitted: { link: string; type: string }[] = [];
+          for (let item of commaSplitted) {
+            let semicolonsplit = item.split('; rel=');
+            semiColonSplitted.push({
+              link: semicolonsplit[0].substring(
+                1,
+                semicolonsplit[0].length - 1
+              ),
+              type: semicolonsplit[1].substring(
+                1,
+                semicolonsplit[1].length - 1
+              ),
+            });
+          }
+          const lastPage = parseInt(
+            semiColonSplitted[semiColonSplitted.length - 1].link
+              .split('_page=')[1]
+              .substring(0, 1)
+          );
+          const currentLimit = parseInt(
+            semiColonSplitted[semiColonSplitted.length - 1].link.substring(
+              semiColonSplitted[semiColonSplitted.length - 1].link.length - 2,
+              semiColonSplitted[semiColonSplitted.length - 1].link.length
+            )
+          );
+          this.pageSize = currentLimit;
+          this.totalLengthPage = lastPage * currentLimit;
+        },
+        error: (err: HttpErrorResponse) => {
+          this.openSnackBar(err.statusText);
+        },
+      });
+  }
+
+  changePage(event: PageEvent) {
+    this.getUsersList(event.pageIndex + 1);
   }
 
   searchAndSort() {
     this._usersListService
-      .searchAndSortUsers(this.searchKeyword, this.sortCriteria)
+      .getUsersList(this.searchKeyword, this.sortCriteria, this.pageNumber)
       .subscribe({
-        next: (result: User[]) => {
-          this.usersList = result;
+        next: (result: HttpResponse<any>) => {
+          this.usersList = result.body;
         },
         error: (err: HttpErrorResponse) => {
           this.openSnackBar(err.statusText);

@@ -10,13 +10,26 @@ export class UsersListService {
 
   constructor(private _http: HttpClient) {}
 
-  getUsersList() {
-    return this._http.get<any>(`${this.baseUrl}/users`);
+  getUsersList(
+    key: string,
+    criteria: string,
+    pageNum: number,
+    limit: number = 12
+  ) {
+    return this._http.get<any>(
+      `${this.baseUrl}/users?q=${key}&_sort=${criteria}&_page=${pageNum}&_limit=${limit}`,
+      { observe: 'response' }
+    );
   }
 
-  searchAndSortUsers(key: string, criteria: string) {
+  searchAndSortUsers(
+    key: string,
+    criteria: string,
+    pageNum: number,
+    limit: number = 12
+  ) {
     return this._http.get<any>(
-      `${this.baseUrl}/users?q=${key}&_sort=${criteria}`
+      `${this.baseUrl}/users?q=${key}&_sort=${criteria}&_page=${pageNum}&_limit=${limit}`
     );
   }
 }

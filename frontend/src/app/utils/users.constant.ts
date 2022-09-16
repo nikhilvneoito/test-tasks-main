@@ -1,7 +1,11 @@
 export const USER_CONSTANTS = {
-  DROP_DOWN: [
+  SORT_BY_DROP_DOWN: [
     { value: 'age', viewValue: 'Age' },
     { value: 'created_ At', viewValue: 'Created At' },
+  ],
+  SORT_AS_DROP_DOWN: [
+    { value: 'asc', viewValue: 'Ascending' },
+    { value: 'desc', viewValue: 'Descending' },
   ],
   NEW_USER: 'new'
 };

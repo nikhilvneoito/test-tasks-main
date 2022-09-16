@@ -12,6 +12,8 @@ import {
 import { USER_CONSTANTS } from 'src/app/utils/users.constant';
 import { SNACKBAR_CONST } from 'src/app/utils/material.constant';
 import { ROUTE_CONST } from 'src/app/utils/misc.constant';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-user-profile',
@@ -29,7 +31,7 @@ export class UserProfileComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private profileService: UserProfileService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
   ) {
     if (this.route.snapshot.params['id'] === USER_CONSTANTS.NEW_USER) {
       this.forCreation = true;
@@ -72,24 +74,37 @@ export class UserProfileComponent implements OnInit {
       this.openSnackBar(SNACKBAR_CONST.CHECK_FIELDS_MSG);
       return;
     }
-    let userDetails = {
+    let userDetails: Partial<User> = {
       name: this.f['name'].value,
       statusMessage: this.f['statusMessage'].value,
       age: this.f['age'].value,
       email: this.f['email'].value,
       isPublic: this.f['isPublic'].value,
+      avatarUrl: this.f['avatarUrl'].value,
     };
-    this.profileService.createUser(userDetails).subscribe({
-      next: () => {
-        this.openSnackBar(
-          `User ${this.forCreation ? 'created' : 'updated'} successfully`
-        );
-        this.router.navigate([ROUTE_CONST.USERS_LIST]);
-      },
-      error: (err: HttpErrorResponse) => {
-        this.openSnackBar(err.statusText);
-      },
-    });
+    if (this.forCreation) {
+      this.profileService.createUser(userDetails).subscribe({
+        next: (user: User) => {
+          this.openSnackBar(`User created successfully`);
+          this.router.navigate([ROUTE_CONST.USERS_LIST]);
+        },
+        error: (err: HttpErrorResponse) => {
+          this.openSnackBar(err.statusText);
+        },
+      });
+    } else {
+      userDetails['id'] = this.currentUser?.id;
+      userDetails['createdAt'] = this.currentUser?.createdAt;
+      this.profileService.updateUser(userDetails).subscribe({
+        next: () => {
+          this.openSnackBar(`User updated successfully`);
+          this.router.navigate([ROUTE_CONST.USERS_LIST]);
+        },
+        error: (err: HttpErrorResponse) => {
+          this.openSnackBar(err.statusText);
+        },
+      });
+    }
   }
 
   deleteUser() {

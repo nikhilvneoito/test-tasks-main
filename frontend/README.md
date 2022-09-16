@@ -1,5 +1,7 @@
 # Frontend
 
+https://www.bacancytechnology.com/blog/ngrx-detailed-introduction-of-angular-redux-rxjs-part-2
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.2.
 
 ## Development server
