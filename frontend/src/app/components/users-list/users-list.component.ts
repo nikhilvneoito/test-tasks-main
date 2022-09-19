@@ -16,6 +16,8 @@ import { SNACKBAR_CONST } from 'src/app/utils/material.constant';
 import { PageEvent } from '@angular/material/paginator';
 import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
+import { GETUserFail, getUsers, PAGEINIT, SEARCH_SORT_USER } from 'src/app/store';
+import { AppState } from 'src/app/store/app.state';
 
 @Component({
   selector: 'app-users-list',
@@ -40,10 +42,19 @@ export class UsersListComponent implements OnInit {
   constructor(
     private _usersListService: UsersListService,
     private _snackBar: MatSnackBar,
-  ) {}
+    private store: Store<AppState>,
+  ) { }
 
   ngOnInit() {
-    this.getUsersList(this.pageNumber);
+    this.store.dispatch(PAGEINIT())
+    this.store.pipe(select(getUsers)).subscribe({
+      next: (res: any) => {
+        console.log(res)
+        this.usersList = res.users;
+        this.pageSize = res.pageSize;
+        this.totalLengthPage = res.totalLengthPage;
+      }
+    })
     this.searchedUser.pipe(debounceTime(200)).subscribe({
       next: (event: Event) => {
         this.searchUsers(event);
@@ -89,25 +100,17 @@ export class UsersListComponent implements OnInit {
         },
         error: (err: HttpErrorResponse) => {
           this.openSnackBar(err.statusText);
+          this.store.dispatch(GETUserFail(err))
         },
       });
   }
 
   changePage(event: PageEvent) {
-    this.getUsersList(event.pageIndex + 1);
+    this.store.dispatch(SEARCH_SORT_USER({ key: this.searchKeyword, criteria: this.sortCriteria, page: event.pageIndex + 1 }))
   }
 
   searchAndSort() {
-    this._usersListService
-      .getUsersList(this.searchKeyword, this.sortCriteria, this.pageNumber)
-      .subscribe({
-        next: (result: HttpResponse<any>) => {
-          this.usersList = result.body;
-        },
-        error: (err: HttpErrorResponse) => {
-          this.openSnackBar(err.statusText);
-        },
-      });
+    this.store.dispatch(SEARCH_SORT_USER({ key: this.searchKeyword, criteria: this.sortCriteria, page: this.pageNumber }))
   }
 
   searchUsers(event: Event) {

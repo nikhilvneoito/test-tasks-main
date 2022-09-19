@@ -1,16 +1,11 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { AppState } from './app.state';
+import { User } from './models';
 import { UserState } from './reducers';
 
-const getUserState = createFeatureSelector<UserState>('users');
+export const getUsersFromState = (state: AppState) => state.users;
 
-export const getAllUsers = createSelector(getUserState, (state: UserState) => {
-  return state;
-});
-
-export const firstTenUsers = createSelector(
-  getUserState,
-  (state: UserState) => {
-    const users = state.data.slice(0, 10);
-    return { ...state, data: users };
-  }
-);
+export const getUsers = createSelector(
+  getUsersFromState,
+  (state: UserState) => state.data
+)

@@ -10,7 +10,7 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
-import { reducer, UserEffects } from './store';
+import { UserEffects, userReducer } from './store';
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,10 +20,10 @@ import { reducer, UserEffects } from './store';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    StoreModule.forRoot({users: reducer}),
+    StoreModule.forRoot({users: userReducer}),
     EffectsModule.forRoot([UserEffects]),
     StoreDevtoolsModule.instrument({
-      maxAge: 15, // Retains last 15 states
+      maxAge: 25, // Retains last 25 states
     }),
   ],
   providers: [],

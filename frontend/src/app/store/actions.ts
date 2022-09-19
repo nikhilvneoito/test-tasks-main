@@ -1,49 +1,33 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Action } from '@ngrx/store';
+import { Action, createAction, props } from '@ngrx/store';
+import { NewHttpResponse } from '../utils/response.interface';
 import { User } from './models';
 
-export enum UserActionTypes {
-  GetUserLoad = '[USER] Get User',
-  GetUserSuccess = '[USER] Get User Success',
-  GetUserFail = '[USER] Get User Fail',
-  PostUserLoad = '[USER] Post User',
-  PostUserSuccess = '[USER] Post User Success',
-  PostUserFail = '[USER] Post User Fail',
-}
+export const PAGEINIT = createAction(
+  '[APP] App Init'
+)
 
-export class GetUserLoad implements Action {
-  public readonly type = UserActionTypes.GetUserLoad;
-}
+export const GET_USERS = createAction(
+  '[USER] User GET Sucess',
+  props<{ data: NewHttpResponse }>()
+)
 
-export class GetUserSuccess implements Action {
-  public readonly type = UserActionTypes.GetUserSuccess;
-  constructor(public payload: User[]) {}
-}
+export const SEARCH_SORT_USER = createAction(
+  '[USER] Search User',
+  props<{ key: string, criteria: string, page: number }>(),
+)
 
-export class GetUserFail implements Action {
-  public readonly type = UserActionTypes.GetUserFail;
-  constructor(public error: HttpErrorResponse) {}
-}
+export const GETUserFail = createAction(
+  '[USER] User GET Fail',
+  props<{ error: HttpErrorResponse }>()
+)
 
-export class PostUserLoad implements Action {
-  public readonly type = UserActionTypes.PostUserLoad;
-  constructor(public payload: User) {}
-}
+export const POSTUserSuccess = createAction(
+  '[USER] User POST Success',
+  props<{ message: string }>()
+)
 
-export class PostUserSuccess implements Action {
-  public readonly type = UserActionTypes.PostUserSuccess;
-  constructor(public payload: User) {}
-}
-
-export class PostUserFail implements Action {
-  public readonly type = UserActionTypes.PostUserFail;
-  constructor(public error: HttpErrorResponse) {}
-}
-
-export type UserActions =
-  | GetUserLoad
-  | GetUserSuccess
-  | GetUserFail
-  | PostUserLoad
-  | PostUserSuccess
-  | PostUserFail;
+export const POSTUserFail = createAction(
+  '[USER] User POST Fail',
+  props<{ error: HttpErrorResponse }>()
+)
