@@ -13,8 +13,6 @@ import { USER_CONSTANTS } from 'src/app/utils/users.constant';
 import { SNACKBAR_CONST } from 'src/app/utils/material.constant';
 import { ROUTE_CONST } from 'src/app/utils/misc.constant';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { POSTUserSuccess } from 'src/app/store';
 
 @Component({
   selector: 'app-user-profile',
@@ -87,7 +85,6 @@ export class UserProfileComponent implements OnInit {
     if (this.forCreation) {
       this.profileService.createUser(userDetails).subscribe({
         next: (user: User) => {
-          this.store.dispatch(POSTUserSuccess({ message: 'Successfully created' }));
           this.openSnackBar(`User created successfully`);
           this.router.navigate([ROUTE_CONST.USERS_LIST]);
         },

@@ -1,7 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { NewHttpResponse } from '../utils/response.interface';
-import { GETUserFail, GET_USERS, PAGEINIT, POSTUserFail, POSTUserSuccess } from './actions';
-import { User } from './models';
+import { GETUserFail, GET_USERS, PAGEINIT } from './actions';
 
 export interface UserState {
   data: NewHttpResponse;
@@ -29,7 +28,7 @@ const initialState: UserState = {
 
 export const userReducer = createReducer(
   initialState,
-  on(PAGEINIT, (state, { }) => ({
+  on(PAGEINIT, () => ({
     data: {
       firstPage: '',
       lastPage: '',
@@ -53,17 +52,6 @@ export const userReducer = createReducer(
   on(GETUserFail, (state, { error }) => ({
     ...state,
     message: 'Failed to fetch data: ',
-    hasError: true,
-    error: error.message ?? error.error.message
-  })),
-  on(POSTUserSuccess, (state, { message }) => ({
-    ...state,
-    isLoading: false,
-    message: message
-  })),
-  on(POSTUserFail, (state, { error }) => ({
-    ...state,
-    message: 'Failed to post data: ',
     hasError: true,
     error: error.message ?? error.error.message
   })),

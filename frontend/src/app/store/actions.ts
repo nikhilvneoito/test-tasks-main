@@ -1,7 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Action, createAction, props } from '@ngrx/store';
+import { createAction, props } from '@ngrx/store';
 import { NewHttpResponse } from '../utils/response.interface';
-import { User } from './models';
 
 export const PAGEINIT = createAction(
   '[APP] App Init'
@@ -19,15 +18,5 @@ export const SEARCH_SORT_USER = createAction(
 
 export const GETUserFail = createAction(
   '[USER] User GET Fail',
-  props<{ error: HttpErrorResponse }>()
-)
-
-export const POSTUserSuccess = createAction(
-  '[USER] User POST Success',
-  props<{ message: string }>()
-)
-
-export const POSTUserFail = createAction(
-  '[USER] User POST Fail',
   props<{ error: HttpErrorResponse }>()
 )

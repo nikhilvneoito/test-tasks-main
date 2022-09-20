@@ -1,12 +1,8 @@
-import { HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Actions, createEffect, Effect, ofType } from '@ngrx/effects';
-import { Action } from '@ngrx/store';
-import { catchError, from, map, mergeMap, Observable, of, switchMap } from 'rxjs';
-import { UserProfileService } from '../components/user-profile/user-profile.service';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { catchError, from, map, of, switchMap } from 'rxjs';
 import { UsersListService } from '../components/users-list/users-list.service';
-import * as fromUsers from '../store';
-import { GETUserFail, GET_USERS, PAGEINIT, SEARCH_SORT_USER, User } from '../store';
+import { GETUserFail, GET_USERS, PAGEINIT, SEARCH_SORT_USER } from '../store';
 import { NewHttpResponse } from '../utils/response.interface';
 
 @Injectable()
@@ -14,7 +10,6 @@ export class UserEffects {
   constructor(
     private actions$: Actions,
     private userListService: UsersListService,
-    private userProfileService: UserProfileService
   ) { }
 
   loadUsers$ = createEffect(() =>

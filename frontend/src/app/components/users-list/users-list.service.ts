@@ -42,7 +42,6 @@ export class UsersListService {
         let response = result.headers.get('Link');
         let totalCount = parseInt(result.headers.get('X-Total-Count')!);
         let commaSplitted: string[] = response!.split(', ');
-        let semiColonSplitted: { link: string; type: string }[] = [];
         for (let item of commaSplitted) {
           let semicolonsplit = item.split('; rel=');
           switch (semicolonsplit[1].substring(
@@ -74,21 +73,11 @@ export class UsersListService {
               )
               break
           }
-          semiColonSplitted.push({
-            link: semicolonsplit[0].substring(
-              1,
-              semicolonsplit[0].length - 1
-            ),
-            type: semicolonsplit[1].substring(
-              1,
-              semicolonsplit[1].length - 1
-            ),
-          });
         }
         const currentLimit = parseInt(
-          last!.substring(
-            last!.length - 2,
-            last!.length
+          last.substring(
+            last.length - 2,
+            last.length
           )
         );
         return {
